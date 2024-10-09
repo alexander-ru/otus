@@ -17,7 +17,7 @@ VLAN | Имя | Назначенный интерфейс
 3 | Management | S1: VLAN 3 
 | | | S2: VLAN 3
 | | | S1: E0/2
-4 | Operations | S2: F0/18
+4 | Operations | S2: E0/1
 7 | ParkingLot | S1: F0/2-4, F0/7-24, G0/1-2 
 | | | S2: F0/2-17, F0/19-24, G0/1-2 
 8 | Native | ----
