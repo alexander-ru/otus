@@ -31,9 +31,9 @@ VLAN | Имя | Назначенный интерфейс
 ### 1. Создание сети и настройка основных параметров устройства
 Для начала отключим поиск DNS и настроим пароли для входа в систему:
 ![](https://github.com/alexander-ru/otus/blob/main/lab_1/router_settings_1.png)
-
+![](https://github.com/alexander-ru/otus/blob/main/lab_1/router_settings_2.png)
 Включим шифрование паролей, настроим время и создадим баннер с предупреждением:
-
+![](https://github.com/alexander-ru/otus/blob/main/lab_1/router_settings_3.png)
 Настройка коммутаторов производится аналогично.
 ### 2. Создание сетей VLAN и назначение портов коммутатора
 На коммутаторе S1 создадим VLAN, согласно топологии, присвоим им имена:
