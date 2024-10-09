@@ -65,3 +65,17 @@ VLAN | Имя | Назначенный интерфейс
 Проверяем созданные субинтерфейсы:
 
 ![](https://github.com/alexander-ru/otus/blob/main/lab_1/router_interfaces.png)
+
+### 5. Проверка работы маршрутизации между VLAN
+Чуть не забыл назначить сетевые параметры на PC-A и PC-B:
+
+![](https://github.com/alexander-ru/otus/blob/main/lab_1/pc-a_ip_config.png)
+![](https://github.com/alexander-ru/otus/blob/main/lab_1/pc-b_ip_config.png)
+
+Отправляем эхо-запросы с PC-A:
+
+![](https://github.com/alexander-ru/otus/blob/main/lab_1/pc-a_ping.png)
+
+С PC-B:
+
+![](https://github.com/alexander-ru/otus/blob/main/lab_1/pc-b_ping.png)
