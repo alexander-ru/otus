@@ -29,6 +29,11 @@ S1(config-if)#no sh
 S1(config-if)#do wr
 ```
 <s>(Т.к. в прошлой ЛР уже настраивалась парольная защита, то в этой ЛР я ее решил опустить для упрощения управления устройствами)</s>
+
 Проверим связность от S1 до S2 и S3:
 
 ![](https://github.com/alexander-ru/otus/blob/main/lab_2/ping_from_s1_to_s2-s3.png)
+
+Теперь от S2 до S3:
+
+![](https://github.com/alexander-ru/otus/blob/main/lab_2/ping_s2-s3.png)
