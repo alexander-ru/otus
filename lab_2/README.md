@@ -55,3 +55,19 @@ S3#conf t
 S3(config)#int range e0/0-3
 S3(config-if-range)#sh
 ```
+#### Шаг 2. Настроим подключенные порты как транковые
+```
+S1(config)#int range e0/0-3
+S1(config-if-range)#switchport trunk encapsulation dot1q
+S1(config-if-range)#switchport mode trunk
+```
+```
+S2(config)#int range e0/0-3
+S2(config-if-range)#switchport trunk encapsulation dot1q
+S2(config-if-range)#switchport mode trunk
+```
+```
+S3(config)#int range e0/0-3
+S3(config-if-range)#switchport trunk encapsulation dot1q
+S3(config-if-range)#switchport mode trunk
+```
