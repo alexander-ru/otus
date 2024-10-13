@@ -108,6 +108,16 @@ S3(config-if-range)#no sh
 S3(config)#int e0/2
 S3(config-if)#spanning-tree cost 99
 ```
+#### Шаг 3:	Просмотрите изменения протокола spanning-tree
 После этого коммутаторы пересчитают топологию и ранее заблокированный порт E0/1 коммутатора S3 станет Designated, а ранее Designated порт E0/1 коммутатора S1 станет Alternate. Все потому, что теперь общая стоимость двух портов до Root коммутатора на коммутаторе S3 равна 199, а для S1 - 200:
 
 ![](https://github.com/alexander-ru/otus/blob/main/lab_2/s3_change_cost.png)
+
+#### Шаг 4:	Удалите изменения стоимости порта
+```
+S3#conf t
+S3(config)#int e0/2
+S3(config-if)#spanning-tree cost 100
+```
+
+### 4. Наблюдение за процессом выбора протоколом STP порта, исходя из приоритета портов
