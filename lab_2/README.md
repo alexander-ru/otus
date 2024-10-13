@@ -71,3 +71,22 @@ S3(config)#int range e0/0-3
 S3(config-if-range)#switchport trunk encapsulation dot1q
 S3(config-if-range)#switchport mode trunk
 ```
+#### Шаг 3:	Включим порты E0/2 и E0/1 на всех коммутаторах
+```
+S1(config)#int range e0/1-2
+S1(config-if-range)#no sh
+```
+```
+S2(config)#int range e0/1-2
+S2(config-if-range)#no sh
+```
+```
+S3(config)#int range e0/1-2
+S3(config-if-range)#no sh
+```
+#### Шаг 4:	Отобразите данные протокола spanning-tree
+![](https://github.com/alexander-ru/otus/blob/main/lab_2/show_stp_for_s1.png)
+
+![](https://github.com/alexander-ru/otus/blob/main/lab_2/show_stp_for_s2.png)
+
+![](https://github.com/alexander-ru/otus/blob/main/lab_2/show_stp_for_s3.png)
