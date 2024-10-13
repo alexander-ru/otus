@@ -37,3 +37,21 @@ S1(config-if)#do wr
 Теперь от S2 до S3:
 
 ![](https://github.com/alexander-ru/otus/blob/main/lab_2/ping_s2-s3.png)
+
+### 2. Выбор корневого моста
+#### Шаг 1. Отключим все порты на коммутаторах:
+```
+S1#conf t
+S1(config)#int range e0/0-3
+S1(config-if-range)#sh
+```
+```
+S2#conf t
+S2(config)#int range e0/0-3
+S2(config-if-range)#sh
+```
+```
+S3#conf t
+S3(config)#int range e0/0-3
+S3(config-if-range)#sh
+```
