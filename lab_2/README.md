@@ -90,3 +90,5 @@ S3(config-if-range)#no sh
 ![](https://github.com/alexander-ru/otus/blob/main/lab_2/show_stp_for_s2.png)
 
 ![](https://github.com/alexander-ru/otus/blob/main/lab_2/show_stp_for_s3.png)
+
+Исходя из вывода команды видно, что Root Bridge стал коммутатор S2. Так как приоритет у всех одинаковый (32 769), то Root Bridge выбирается по самому меньшему значению MAC адреса коммутатора из всех трех. А самый меньший у S2 -  aabb.cc00.e000.
