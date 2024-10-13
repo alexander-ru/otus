@@ -121,3 +121,28 @@ S3(config-if)#spanning-tree cost 100
 ```
 
 ### 4. Наблюдение за процессом выбора протоколом STP порта, исходя из приоритета портов
+#### Шаг 1:	Включить остальные порты на коммутаторах 
+```
+S3#conf t
+S3(config)#int e0/0
+S3(config-if)#no sh
+S3(config-if)#ex
+S3(config)#int e0/3
+S3(config-if)#no sh
+```
+```
+S1#conf t
+S1(config)#int e0/0
+S1(config-if)#no sh
+S1(config-if)#ex
+S1(config)#int e0/3
+S1(config-if)#no sh
+```
+```
+S2#conf t
+S2(config)#int e0/0
+S2(config-if)#no sh
+S2(config-if)#ex
+S2(config)#int e0/3
+S2(config-if)#no sh
+```
