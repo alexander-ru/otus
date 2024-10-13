@@ -12,3 +12,19 @@ S3  | VLAN 1 | 192.168.1.3 | 255.255.255.0
 2. Выбор корневого моста
 3. Наблюдение за процессом выбора протоколом STP порта, исходя из стоимости портов
 4. Наблюдение за процессом выбора протоколом STP порта, исходя из приоритета портов
+### 1. Создание сети и настройка основных параметров устройства
+Базово настроим основные параметры на S1 и на остальных коммутаторах по аналогии:
+```
+Switch>en
+Switch#conf t
+Switch(config)#no ip domain lookup
+Switch(config)#hostname S1
+S1(config)#banner motd "ATTENTION"
+S1(config)#line console 0
+S1(config-line)#logging synchronous
+S1(config-line)#ex
+S1(config)#int vlan 1
+S1(config-if)#ip address 192.168.1.1 255.255.255.0
+S1(config-if)#no sh
+S1(config-if)#do wr
+```
