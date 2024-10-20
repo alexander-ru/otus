@@ -104,3 +104,27 @@ S3(config-if)#no sh
 ![](https://github.com/alexander-ru/otus/blob/main/lab_2.2%20(EtherChannel)/sh_etherchannel_load_balance.png)
 
 #### Шаг 4: Настройте транковые порты
+Все настройки производим уже на PortChannel, а не на отдельных портах:
+```
+S1#conf t
+S1(config)#int po1
+S1(config-if)#switchport trunk encapsulation dot1q
+S1(config-if)#switchport mode trunk
+S1(config-if)#switchport trunk native vlan 99
+```
+```
+S3#conf t
+S3(config)#int po1
+S3(config-if)#switchport trunk encapsulation dot1q
+S3(config-if)#switchport mode trunk
+S3(config-if)#switchport trunk native vlan 99
+```
+Проверяем и видим, что в качестве транкового порта отображается PortGroup:
+
+![](https://github.com/alexander-ru/otus/blob/main/lab_2.2%20(EtherChannel)/sh_trunk_on_S3.png)
+
+Кстати, в рамках STP стоимость линка (Cost) для EtherChannel равна 56:
+
+![](https://github.com/alexander-ru/otus/blob/main/lab_2.2%20(EtherChannel)/sh_spanning_three_on_S1.png)
+
+### Часть 3: Настройка протокола LACP
