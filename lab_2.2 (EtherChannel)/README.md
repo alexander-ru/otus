@@ -63,14 +63,18 @@ S1>en
 S1#conf t
 S1(config)#int e0/0
 S1(config-if)#channel-group 1 mode desirable
-Creating a port-channel interface Port-channel 1
-
 S1(config-if)#ex
 S1(config)#int e0/3
 S1(config-if)#channel-group 1 mode desirable
-
-*Oct 20 11:51:46.031: %LINK-3-UPDOWN: Interface Ethernet0/3, changed state to up
-*Oct 20 11:51:47.036: %LINEPROTO-5-UPDOWN: Line protocol on Interface Ethernet0/3, changed state to up
+```
+```
+S3>en
+S3#conf t
+S3(config)#int e0/0
+S3(config-if)#channel-group 1 mode auto
+S3(config-if)#ex
+S3(config)#int e0/3
+S3(config-if)#channel-group 1 mode auto
 ```
 Включим порты e0/0 и e0/3 на S1 после настройки режимов PAgP:
 ```
@@ -80,3 +84,10 @@ S1(config-if)#no sh
 ```
 S3(config-if)#no sh
 ```
+#### Шаг 2: Проверьте конфигурации на портах
+
+![](https://github.com/alexander-ru/otus/blob/main/lab_2.2%20(EtherChannel)/sh_channel-group-1_on_S1.png)
+
+![](https://github.com/alexander-ru/otus/blob/main/lab_2.2%20(EtherChannel)/sh_switchport_on_S1.png)
+
+Здесь запись в строке Operation Mode говорит о том, что порт e0/0 (как и e0/3) является участником группы портов Po1.
