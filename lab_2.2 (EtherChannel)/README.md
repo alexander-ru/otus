@@ -84,10 +84,23 @@ S1(config-if)#no sh
 ```
 S3(config-if)#no sh
 ```
-#### Шаг 2: Проверьте конфигурации на портах
+#### Шаг 2: Проверим конфигурации на портах
 
 ![](https://github.com/alexander-ru/otus/blob/main/lab_2.2%20(EtherChannel)/sh_channel-group-1_on_S1.png)
 
 ![](https://github.com/alexander-ru/otus/blob/main/lab_2.2%20(EtherChannel)/sh_switchport_on_S1.png)
 
-Здесь запись в строке Operation Mode говорит о том, что порт e0/0 (как и e0/3) является участником группы портов Po1.
+Здесь запись в строке Operational Mode говорит о том, что порт e0/0 (как и e0/3) является участником группы портов Po1.
+#### Шаг 3: Убедимся, что порты объединены
+
+![](https://github.com/alexander-ru/otus/blob/main/lab_2.2%20(EtherChannel)/sh_etherchannel_summary_on_S3.png)
+
+Аббревиатура SU означает, что Portchannel активен (U - use) и работает на L2 (S). Также в выводе отображаются порты, которые принадлежат первой группе портов.
+
+Еще несколько полезных команд для диагностики:
+
+![](https://github.com/alexander-ru/otus/blob/main/lab_2.2%20(EtherChannel)/sh_etherchannel_protocol_on_S3.png)
+
+![](https://github.com/alexander-ru/otus/blob/main/lab_2.2%20(EtherChannel)/sh_etherchannel_load_balance.png)
+
+#### Шаг 4: Настройте транковые порты
