@@ -128,3 +128,69 @@ S3(config-if)#switchport trunk native vlan 99
 ![](https://github.com/alexander-ru/otus/blob/main/lab_2.2%20(EtherChannel)/sh_spanning_three_on_S1.png)
 
 ### Часть 3: Настройка протокола LACP
+#### Шаг 1: Настройте LACP между S1 и S2.
+На S1 укажем режим Active (LACP), а на S2 - Passive (LACP). Т.о., коммутаторы согласуют агрегированный канал, ведь на S1 установлен режим Active, который будет инициатором, а S2 с режимом Passive согласится на образование агрегированного канала:
+```
+S1#conf t
+S1(config)#int range e0/1-2
+S1(config-if-range)#switchport trunk encapsulation dot1q
+S1(config-if-range)#switchport mode trunk
+S1(config-if-range)#switchport trunk native vlan 99
+S1(config-if-range)#channel-group 2 mode active
+Creating a port-channel interface Port-channel 2
+
+S1(config-if-range)#no sh
+```
+```
+S2>en
+S2#conf t
+S2(config)#int range e0/1-2
+S2(config-if-range)#switchport trunk encapsulation dot1q
+S2(config-if-range)#switchport mode trunk
+S2(config-if-range)#switchport trunk native vlan 99
+S2(config-if-range)#channel-group 2 mode passive
+Creating a port-channel interface Port-channel 2
+
+S2(config-if-range)#no sh
+```
+#### Шаг 2: Убедитесь, что порты объединены
+
+![](https://github.com/alexander-ru/otus/blob/main/lab_2.2%20(EtherChannel)/sh_etherchannel_summary_on_S2.png)
+
+### Шаг 3: Настройте LACP между S2 и S3
+В задании указано настроить агрегированный канал по протоколу LACP, но я установлю канал вручную:
+```
+S2#conf t
+S2(config)#int e0/0
+S2(config-if)#switchport trunk encapsulation dot1q
+S2(config-if)#switchport mode trunk
+S2(config-if)#switchport trunk native vlan 99
+S2(config-if)#channel-group 3 mode on
+S2(config-if)#no sh
+Creating a port-channel interface Port-channel 3
+
+S2(config-if)#ex
+S2(config)#int e0/3
+S2(config-if)#switchport trunk encapsulation dot1q
+S2(config-if)#switchport mode trunk
+S2(config-if)#switchport trunk native vlan 99
+S2(config-if)#channel-group 3 mode on
+S2(config-if)#no sh
+Creating a port-channel interface Port-channel 3
+```
+```
+S3>en
+S3#conf t
+S3(config)#int range e0/1-2
+S3(config-if-range)#switchport trunk encapsulation dot1q
+S3(config-if-range)#switchport mode trunk
+S3(config-if-range)#switchport trunk native vlan 99
+S3(config-if-range)#channel-group 3 mode on
+Creating a port-channel interface Port-channel 3
+
+S3(config-if-range)#no sh
+```
+
+![](https://github.com/alexander-ru/otus/blob/main/lab_2.2%20(EtherChannel)/sh_etherchannel_on_S3.png)
+
+В итоге в выводе команды sh etherchannel для Po3 не указан протокол агрегирования, а значит он настроен вручную (mode on)
