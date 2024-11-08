@@ -138,3 +138,39 @@ R1#wr
 ```
 R2#wr
 ```
+#### Шаг 6. Настройте базовые параметры каждого коммутатора. 
+```
+Switch>en
+Switch#conf t
+Switch(config)#host S1
+S1(config)#no ip domain lookup
+S1(config)#line console 0
+S1(config-line)#logging synchronous
+S1(config-line)#do wr
+```
+```
+Switch>en
+Switch#conf t
+Switch(config)#host S2
+S2(config)#no ip domain lookup
+S2(config)#line console 0
+S2(config-line)#logging synchronous
+S2(config-line)#do wr
+```
+#### Шаг 7. Создайте сети VLAN на коммутаторе S1.
+##### a. Создайте необходимые VLAN на коммутаторе 1 и присвойте им имена из приведенной выше таблицы.
+```
+S1>en
+S1#conf t
+S1(config)#vlan 100
+S1(config-vlan)#name Clients
+S1(config-vlan)#ex
+S1(config)#vlan 200
+S1(config-vlan)#name Management
+S1(config-vlan)#ex
+S1(config)#vlan 999
+S1(config-vlan)#name Parking_Lot
+S1(config-vlan)#ex
+S1(config)#vlan 1000
+S1(config-vlan)#name Native
+```
