@@ -43,3 +43,52 @@
 Выберем подсеть с префиксом /28, включающую в себя 16 адресов - 192.168.1.96/28. 
 #### Шаг 2. Создайте сеть согласно топологии. 
 ####Шаг 3. Произведите базовую настройку маршрутизаторов.
+```
+Router>en
+Router#conf t
+Router(config)#host R1
+R1(config)#no ip domain lookup
+R1(config)#line console 0
+R1(config-line)#logging synchronous
+R1(config-line)#do wr
+```
+```
+Router>
+Router>en
+Router#conf t
+Router(config)#host R2
+R2(config)#no ip domain lookup
+R2(config)#line console 0
+R2(config-line)#logging synchronous
+R2(config-line)#do wr
+```
+#### Шаг 4. Настройка маршрутизации между сетями VLAN на маршрутизаторе R1 
+##### a. Активируйте интерфейс G0/0/1 на маршрутизаторе. 
+```
+R1>en
+R1#conf t
+R1(config)#int e0/1
+R1(config-if)#no sh
+```
+##### b. Настройте подинтерфейсы для каждой VLAN в соответствии с требованиями таблицы IP адресации. Все субинтерфейсы используют инкапсуляцию 802.1Q и назначаются первый полезный адрес из вычисленного пула IP-адресов. Убедитесь, что подинтерфейсу для native VLAN не назначен IP-адрес. Включите описание для каждого подинтерфейса. 
+```
+R1#
+R1#conf t
+R1(config)#int e0/1.100
+R1(config-subif)#encapsulation dot1Q 100
+R1(config-subif)#description VLAN 100
+R1(config-subif)#ip address 192.168.1.1 255.255.255.192
+R1(config-subif)#no sh
+R1(config-subif)#exit
+R1(config)#int e0/1.200
+R1(config-subif)#encapsulation dot1Q 200
+R1(config-subif)#description VLAN 200
+R1(config-subif)#ip address 192.168.1.65 255.255.255.224
+R1(config-subif)#no sh
+R1(config-subif)#exit
+R1(config)#int e0/1.1000
+R1(config-subif)#description native VLAN
+R1(config-subif)#no sh
+```
+##### c. Убедитесь, что подинтерфейсы работают.
+![](2.png)
