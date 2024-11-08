@@ -16,3 +16,14 @@
 | S2       | VLAN 1   |-              |-               |-                |
 | PC-A     | NIC      |DHCP           |DHCP            |DHCP             |
 | PC-B     | NIC      |DHCP           |DHCP            |DHCP             |
+
+### Таблица VLAN
+
+|VLAN      |Имя           |Назначенный интерфейс           |
+|----------|--------------|--------------------------------|
+|1  			 |default		    |S2: e0/1                        |
+|100       |clients       |S1: e0/1                        |
+|200       |Management    |S1: VLAN 200                    |
+|999       |Parking_Lot   |S1: e0/2-e0/3                   |
+|1000      |Native        |-                               |
+
