@@ -8,7 +8,10 @@
 | R1			 | e0/0		  |2001:db8:acad:2።1/64  |
 |          |          |fe80::1               |
 |          | e0/1     |2001:db8:acad:1።1/64  |
-| R2       | e0/0     |               |
-|          | e0/1     |               |
-| PC-A     | NIC      |DHCP           |
-| PC-B     | NIC      |DHCP           |
+|          |          |fe80::1               |
+| R2       | e0/0     |2001:db8:acad:2።2/64  |
+|          |          |fe80::2               |
+|          | e0/1     |2001:db8:acad:3።1/64  |
+|          |          |fe80::1               |
+| PC-A     | NIC      |DHCP                  |
+| PC-B     | NIC      |DHCP                  |
