@@ -50,7 +50,46 @@ Router(config)#host R2
 R2(config)#do wr
 ```
 #### Шаг 4. Настройка интерфейсов и маршрутизации для обоих маршрутизаторов. 
-##### a. Настройте интерфейсы G0/0/0 и G0/1 на R1 и R2 с адресами IPv6, указанными в таблице выше. 
-##### b. Настройте маршрут по умолчанию на каждом маршрутизаторе, который указывает на IP-адрес G0/0/0 на другом маршрутизаторе. 
-##### c. Убедитесь, что маршрутизация работает с помощью пинга адреса G0/0/1 R2 из R1 
+##### a. Настройте интерфейсы e0/0 и e0/1 на R1 и R2 с адресами IPv6, указанными в таблице выше. 
+```
+R1#
+R1#conf t
+R1(config)#int e0/1
+R1(config-if)#ipv6 address 2001:db8:acad:1::1/64
+R1(config-if)#no sh
+R1(config-if)#ipv6 address fe80::1 link-local
+R1(config-if)#ex
+R1(config)#int e0/0
+R1(config-if)#ipv6 address 2001:db8:acad:2::1/64
+R1(config-if)#no sh
+R1(config-if)#ipv6 address fe80::1 link-local
+R1(config-if)#do wr
+```
+```
+R2>en
+R2#
+R2#conf t
+R2(config)#int e0/0
+R2(config-if)#ipv6 address 2001:db8:acad:2::2/64
+R2(config-if)#no sh
+R2(config-if)#ipv6 address fe80::2 link-local
+R2(config-if)#ex
+R2(config)#int e0/1
+R2(config-if)#ipv6 address 2001:db8:acad:3::1/64
+R2(config-if)#no sh
+R2(config-if)#ipv6 address fe80::1 link-local
+R2(config-if)#do wr
+```
+##### b. Настройте маршрут по умолчанию на каждом маршрутизаторе, который указывает на IP-адрес e0/0 на другом маршрутизаторе. 
+```
+R1#
+R1#conf t
+R1(config)#ipv6 route ::/0 2001:db8:acad:2::2
+```
+```
+R2#
+R2#conf t
+R2(config)#ipv6 route ::/0 2001:db8:acad:2::1
+```
+##### c. Убедитесь, что маршрутизация работает с помощью пинга адреса e0/1 R2 из R1 
 ##### d. Сохраните текущую конфигурацию в файл загрузочной конфигурации. 
