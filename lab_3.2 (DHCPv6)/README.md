@@ -142,3 +142,22 @@ R1#wr
 
 ##### f. Тестирование подключения с помощью пинга IP-адреса интерфейса e0/1 R2.
 ![](7.png)
+
+### Часть 4. Настройка сервера DHCPv6 с сохранением состояния на R1
+##### a. Создайте пул DHCPv6 на R1 для сети 2001:db8:acad:3:aaa::/80. Это предоставит адреса локальной сети, подключенной к интерфейсу e0/1 на R2. В составе пула задайте DNS-сервер 2001:db8:acad: :254 и задайте доменное имя STATEFUL.com. 
+```
+R1>en
+R1#
+R1#conf t
+R1(config)#ipv6 dhcp pool R2-STATEFUL
+R1(config-dhcpv6)#address prefix 2001:db8:acad:3:aaa::/80
+R1(config-dhcpv6)#dns-server 2001:db8:acad::254
+R1(config-dhcpv6)#domain-name STATEFUL.com
+```
+##### b. Назначьте только что созданный пул DHCPv6 интерфейсу e0/0 на R1. 
+```
+R1#
+R1#conf t
+R1(config)#int e0/0
+R1(config-if)#ipv6 dhcp server R2-STATEFUL
+```
