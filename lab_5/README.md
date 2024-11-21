@@ -77,3 +77,11 @@ R28(config-route-map)#exit
 R28(config)#int e0/2.31
 R28(config-if)#ip policy route-map Primary_route_for_VPC-31
 ```
+### Проверка
+Перед проверкой убедимся, что в таблице маршрутизации нет никаких маршрутов, помимо connected:  
+
+![](2.png)
+
+
+ip route 0.0.0.0 0.0.0.0 200.200.200.225 track 1
+ip route 0.0.0.0 0.0.0.0 200.200.200.221 10
