@@ -34,21 +34,28 @@ R27(config)#ip route 0.0.0.0 0.0.0.0 200.200.200.217 name to_R25
 
 Настроим IP SLA, который будет проверять доступность next-hop 200.200.200.225:
 ```
-ip sla 30
+R28(config)#ip sla 30
+R28(config-ip-sla)#icmp-echo 200.200.200.225 source-interface e0/0
+R28(config-ip-sla-echo)#frequency 10
+R28(config)#ip sla schedule 30 life forever start-time now
 ```
 Инициализируем объект отслеживание и привяжем его к созданному экземпляру IP SLA:
 ```
-
+R28(config)#track 30 ip sla 30
 ```
 Создадим access-list, где укажем IP адрес VPC30, для которого далее сконфигурируем политику маршрутизации:
 ```
-
+R28(config)#ip access-list extended for_VPC-30
+R28(config-ext-nacl)#permit ip host 179.140.30.100 any
 ```
 Создаем маршрутуную карту, где матчим VPC30 и отправляем его пакеты на next-hop 200.200.200.225 если track 30 находится в Up:
 ```
-
+R28(config)#route-map Primary_route_for_VPC-30 permit 10
+R28(config-route-map)#match ip address for_VPC-30
+R28(config-route-map)#set ip next-hop verify-availability 200.200.200.225 1 track 30
 ```
 Применяем эту политику на субинтерфейсе, смотрящем на клиента:
 ```
-
+R28(config)#int e0/2.30
+R28(config-if)#ip policy route-map Primary_route_for_VPC-30
 ```
