@@ -32,7 +32,7 @@ R27(config)#ip route 0.0.0.0 0.0.0.0 200.200.200.217 name to_R25
 
 ![](topology.png)
 
-Настроим IP SLA, который будет проверять доступность next-hop 200.200.200.225:
+Сперва настроим политику для VPC30. Создадим IP SLA, который будет проверять доступность next-hop 200.200.200.225:
 ```
 R28(config)#ip sla 30
 R28(config-ip-sla)#icmp-echo 200.200.200.225 source-interface e0/0
@@ -58,4 +58,21 @@ R28(config-route-map)#set ip next-hop verify-availability 200.200.200.225 1 trac
 ```
 R28(config)#int e0/2.30
 R28(config-if)#ip policy route-map Primary_route_for_VPC-30
+```
+Политика распределения трафика для VPC31 настраивается аналогично:
+```
+R28(config)#ip sla 31
+R28(config-ip-sla)#icmp-echo 200.200.200.221 source-interface e0/1
+R28(config-ip-sla-echo)#frequency 10
+R28(config)#ip sla schedule 31 life forever start-time now
+R28(config)#track 31 ip sla 31
+R28(config)#ip access-list extended for_VPC-31
+R28(config-ext-nacl)#permit ip host 179.140.31.100 any
+R28(config-ext-nacl)#exit
+R28(config)#route-map Primary_route_for_VPC-31 permit 10
+R28(config-route-map)#match ip address for_VPC-31
+R28(config-route-map)#set ip next-hop verify-availability 200.200.200.221 1 track 31
+R28(config-route-map)#exit
+R28(config)#int e0/2.31
+R28(config-if)#ip policy route-map Primary_route_for_VPC-31
 ```
