@@ -1,1 +1,156 @@
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R28
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
 
+
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+!
+track 1 ip sla 30 reachability
+!
+track 30 ip sla 30
+!
+track 31 ip sla 31
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Ethernet0/0
+ ip address 200.200.200.226 255.255.255.252
+!
+interface Ethernet0/1
+ ip address 200.200.200.222 255.255.255.252
+!
+interface Ethernet0/2
+ no ip address
+!
+interface Ethernet0/2.30
+ encapsulation dot1Q 30
+ ip address 179.140.30.1 255.255.255.0
+ ip policy route-map Primary_route_for_VPC-30
+!
+interface Ethernet0/2.31
+ encapsulation dot1Q 31
+ ip address 179.140.31.1 255.255.255.0
+ ip policy route-map Primary_route_for_VPC-31
+!
+interface Ethernet0/2.99
+ encapsulation dot1Q 99
+ ip address 179.140.99.1 255.255.255.252
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+interface Ethernet1/0
+ no ip address
+ shutdown
+!
+interface Ethernet1/1
+ no ip address
+ shutdown
+!
+interface Ethernet1/2
+ no ip address
+ shutdown
+!
+interface Ethernet1/3
+ no ip address
+ shutdown
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+ip route 0.0.0.0 0.0.0.0 200.200.200.225 name primary_route track 1
+ip route 0.0.0.0 0.0.0.0 200.200.200.221 10 name secondary_route
+!
+ip access-list extended for_VPC-30
+ permit ip host 179.140.30.100 any
+ip access-list extended for_VPC-31
+ permit ip host 179.140.31.100 any
+!
+ip sla auto discovery
+ip sla 30
+ icmp-echo 200.200.200.225 source-interface Ethernet0/0
+ frequency 10
+ip sla schedule 30 life forever start-time now
+ip sla 31
+ icmp-echo 200.200.200.221 source-interface Ethernet0/1
+ frequency 10
+ip sla schedule 31 life forever start-time now
+!
+route-map Primary_route_for_VPC-30 permit 10
+ match ip address for_VPC-30
+ set ip next-hop verify-availability 200.200.200.225 1 track 30
+!
+route-map Primary_route_for_VPC-31 permit 10
+ match ip address for_VPC-31
+ set ip next-hop verify-availability 200.200.200.221 1 track 31
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login
+ transport input all
+!
+!
+end
