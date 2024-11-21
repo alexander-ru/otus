@@ -64,6 +64,7 @@ R28(config-if)#ip policy route-map Primary_route_for_VPC-30
 R28(config)#ip sla 31
 R28(config-ip-sla)#icmp-echo 200.200.200.221 source-interface e0/1
 R28(config-ip-sla-echo)#frequency 10
+R28(config-ip-sla-echo)#exit
 R28(config)#ip sla schedule 31 life forever start-time now
 R28(config)#track 31 ip sla 31
 R28(config)#ip access-list extended for_VPC-31
