@@ -75,3 +75,42 @@ R20(config)#router ospf 1
 R20(config-router)#router-id 20.20.20.20
 R20(config-router)#network 150.150.150.136 0.0.0.3 area 102
 ```
+### 3. Настройка Area 101 как Totally Stub
+По условию задания R19 должен получать только маршрут по умолчанию. Сделаем это, настроив зону 101 как Totally Stub:
+```
+R19#conf t
+R19(config)#router ospf 1
+R19(config-router)#area 101 stub no-summary
+```
+```
+R14#conf t
+R14(config)#router ospf 1
+R14(config-router)#area 101 stub no-summary
+```
+### 4. Настройка Area 10 как Stub
+```
+R12#conf t
+R12(config)#router ospf 1
+R12(config-router)#area 10 stub
+```
+```
+R13#conf t
+R13(config)#router ospf 1
+R13(config-router)#area 10 stub
+```
+```
+R14#conf t
+R14(config)#router ospf 1
+R14(config-router)#area 10 stub
+```
+```
+R15#conf t
+R15(config)#router ospf 1
+R15(config-router)#area 10 stub
+```
+
+Проверим, что маршрут по-умолчанию действительно появился:
+
+![](1.png)
+
+На R13 маршрут тоже появился.
