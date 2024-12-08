@@ -87,6 +87,10 @@ R14#conf t
 R14(config)#router ospf 1
 R14(config-router)#area 101 stub no-summary
 ```
+Проверим таблицу маршрутизации:
+
+![](2.png)
+
 ### 4. Настройка Area 10 как Stub
 ```
 R12#conf t
