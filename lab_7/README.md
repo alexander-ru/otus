@@ -48,3 +48,11 @@ R26(config-if)#ex
 R26(config)#int e0/2
 R26(config-if)#ip router isis
 ```
+### 5. Проверка IS-IS
+Таблица соседей:
+
+![](neighbors_table)
+
+Таблица маршрутизации:
+
+![](routing_table)
