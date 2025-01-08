@@ -51,8 +51,8 @@ R26(config-if)#ip router isis
 ### 5. Проверка IS-IS
 Таблица соседей:
 
-![](neighbors_table)
+![](neighbors_table.png)
 
 Таблица маршрутизации:
 
-![](routing_table)
+![](routing_table.png)
