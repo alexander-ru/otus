@@ -1,1 +1,124 @@
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R17
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
 
+
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Ethernet0/0
+ no ip address
+!
+interface Ethernet0/0.100
+ encapsulation dot1Q 100
+ ip address 90.90.90.1 255.255.255.128
+ standby 1 ip 90.90.90.5
+ standby 1 priority 110
+ standby 1 preempt
+!
+interface Ethernet0/1
+ ip address 90.90.91.14 255.255.255.252
+!
+interface Ethernet0/2
+ no ip address
+!
+interface Ethernet0/2.200
+ encapsulation dot1Q 200
+ ip address 90.90.90.129 255.255.255.128
+ standby 2 ip 90.90.90.133
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+!
+router eigrp NG
+ !
+ address-family ipv4 unicast autonomous-system 1
+  !
+  af-interface Ethernet0/1
+   summary-address 90.90.90.0 255.255.255.0
+  exit-af-interface
+  !
+  topology base
+  exit-af-topology
+  network 90.90.90.0 0.0.0.127
+  network 90.90.90.128 0.0.0.127
+  network 90.90.91.12 0.0.0.3
+ exit-address-family
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login
+ transport input all
+!
+!
+end
