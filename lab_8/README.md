@@ -59,3 +59,22 @@ R17(config-router-af-interface)#summary-address 90.90.90.0 255.255.255.0
 ![](1.png)
 
 ### 3. Настройка R32 для получения только маршрута по умолчанию.
+Для этого на R18 настроим суммаризацию вида 0.0.0.0/0:
+```
+R18(config-router-af)#af-interface e0/0
+R18(config-router-af-interface)#summary-address 0.0.0.0/0
+R18(config-router-af)#ex
+R18(config-router-af)#af-interface e0/1
+R18(config-router-af-interface)#summary-address 0.0.0.0/0
+```
+Теперь на R32 разрешим добавлять в таблицу маршрутизации только суммарный маршрут 0.0.0.0/0 от R18:
+```
+R32(config)#access-list 10 permit 0.0.0.0 0.0.0.0
+R32(config)#router eigrp NG
+R32(config-router)#address-family ipv4 unicast autonomous-system 1
+R32(config-router-af)#topology base
+R32(config-router-af-topology)#distribute-list 10 in
+```
+Проверяем:
+
+![](2.png)
