@@ -69,3 +69,7 @@ R26(config-router)#network 90.90.91.4 mask 255.255.255.252
 Проверим Local RIB на R14 в Москве: 
 
 ![](1.png)
+
+Проверим Local RIB на R18 в С.-Петербургt: 
+
+![](2.png)
