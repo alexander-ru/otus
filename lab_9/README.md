@@ -65,3 +65,7 @@ R26(config)#router bgp 520
 R26(config-router)#neighbor 90.90.91.6 remote-as 2042
 R26(config-router)#network 90.90.91.4 mask 255.255.255.252
 ```
+### 2. Проверка IP связности между Москвой и С.-Петербургом
+Проверим Local RIB на R14 в Москве: 
+
+![](1.png)
