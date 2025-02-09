@@ -81,7 +81,9 @@ R15(config-route-map)#ex
 R15(config)#router bgp 1001
 R15(config-router)#neighbor 150.150.150.158 route-map SET_LOCAL_PREFF in
 ```
- 
+Проверим:
+
+![](1.png)
  
  
  
