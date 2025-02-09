@@ -1,0 +1,126 @@
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R18
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 18.18.18.18 255.255.255.255
+!
+interface Ethernet0/0
+ ip address 90.90.91.9 255.255.255.252
+!
+interface Ethernet0/1
+ ip address 90.90.91.13 255.255.255.252
+!
+interface Ethernet0/2
+ ip address 90.90.91.2 255.255.255.252
+!
+interface Ethernet0/3
+ ip address 90.90.91.6 255.255.255.252
+!
+!
+router eigrp NG
+ !
+ address-family ipv4 unicast autonomous-system 1
+  !
+  af-interface Ethernet0/0
+   summary-address 0.0.0.0 0.0.0.0
+  exit-af-interface
+  !
+  af-interface Ethernet0/1
+   summary-address 0.0.0.0 0.0.0.0
+  exit-af-interface
+  !
+  topology base
+  exit-af-topology
+  network 90.90.91.8 0.0.0.3
+  network 90.90.91.12 0.0.0.3
+ exit-address-family
+!
+router bgp 2042
+ bgp log-neighbor-changes
+ network 90.90.91.0 mask 255.255.255.252
+ network 90.90.91.4 mask 255.255.255.252
+ neighbor 90.90.91.1 remote-as 520
+ neighbor 90.90.91.5 remote-as 520
+ neighbor 90.90.91.5 soft-reconfiguration inbound
+ maximum-paths 2
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login
+ transport input all
+!
+!
+end
