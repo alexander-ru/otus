@@ -33,10 +33,8 @@ R18(config-router)#neighbor 90.90.91.1 prefix-list DENY_UPDATE_to_AS520 out
 R18(config-router)#neighbor 90.90.91.5 prefix-list DENY_UPDATE_to_AS520 out
 R18(config-router)#end
 R18#clear ip bgp * soft
-R18#
-R18#
-R18#
-R18#
+```
+```
 R18#
 R18#sh ip bgp neighbors 90.90.91.5 advertised-routes
 BGP table version is 131, local router ID is 18.18.18.18
@@ -51,7 +49,8 @@ RPKI validation codes: V valid, I invalid, N Not found
  *>  90.90.91.4/30    0.0.0.0                  0         32768 i
 
 Total number of prefixes 2
-R18#
+```
+```
 R18#
 R18#sh ip bgp neighbors 90.90.91.1 advertised-routes
 BGP table version is 131, local router ID is 18.18.18.18
@@ -66,6 +65,4 @@ RPKI validation codes: V valid, I invalid, N Not found
  *>  90.90.91.4/30    0.0.0.0                  0         32768 i
 
 Total number of prefixes 2
-R18#
-
 ```
