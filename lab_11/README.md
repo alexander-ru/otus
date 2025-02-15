@@ -87,7 +87,7 @@ R21(config)#ip prefix-list DEFAULT_ROUTE_for_R15 seq 10 permit 0.0.0.0/0
 R21(config)#ip prefix-list DEFAULT_ROUTE_for_R15 seq 15 permit 90.90.91.0/30
 R21(config)#ip prefix-list DEFAULT_ROUTE_for_R15 seq 20 permit 90.90.91.4/30
 R21(config)#router bgp 301
-R21(config-router)#$0.150.150.157 prefix-list DEFAULT_ROUTE_for_R15 out
+R21(config-router)#neighbor 150.150.150.157 prefix-list DEFAULT_ROUTE_for_R15 out
 R21(config-router)#end
 R21#clear ip bgp * soft
 ```
