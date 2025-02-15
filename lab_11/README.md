@@ -66,3 +66,28 @@ RPKI validation codes: V valid, I invalid, N Not found
 
 Total number of prefixes 2
 ```
+### 3. Настроить провайдера Киторн так, чтобы в офис Москва отдавался только маршрут по умолчанию.
+```
+R22#conf t
+R22(config)#router bgp 101
+R22(config-router)#neighbor 150.150.150.153 default-originate
+R22#end
+R22#conf t
+R22(config)#ip prefix-list DEFAUL_STATIC_ROUTE_for_R14 permit 0.0.0.0/0
+R22(config)#router bgp 101
+R22(config-router)#neighbor 150.150.150.153 prefix-list DEFAUL_STATIC_ROUTE_for_R14 out
+```
+### 4. Настроить провайдера Ламас так, чтобы в офис Москва отдавался только маршрут по умолчанию и префикс офиса С.-Петербург.
+```
+R21#conf t
+R21(config)#router bgp 301
+R21(config-router)#neighbor 150.150.150.157 default-originate
+R21(config-router)#ex
+R21(config)#ip prefix-list DEFAULT_ROUTE_for_R15 seq 10 permit 0.0.0.0/0
+R21(config)#ip prefix-list DEFAULT_ROUTE_for_R15 seq 15 permit 90.90.91.0/30
+R21(config)#ip prefix-list DEFAULT_ROUTE_for_R15 seq 20 permit 90.90.91.4/30
+R21(config)#router bgp 301
+R21(config-router)#$0.150.150.157 prefix-list DEFAULT_ROUTE_for_R15 out
+R21(config-router)#end
+R21#clear ip bgp * soft
+```
