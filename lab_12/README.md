@@ -36,4 +36,41 @@ R14(config-if)#ex
 R14(config)#int e0/2
 R14(config-if)#ip nat outside
 ```
-
+### 2. Настроить NAT(PAT) на R18. Трансляция должна осуществляться в пул из 5 адресов автономной системы AS2042.
+На R18 создадим Loopback интерфейс с IP-адресом из подсети 90.90.91.20/29, пять адресов из которой будут использоваться для NAT (PAT):
+```
+R18>en
+R18#conf t
+R18(config)#int loopback 1
+R18(config-if)#ip address 90.90.92.1 255.255.255.240
+```
+```
+R18(config)#access-list 1 permit 90.90.90.0 0.0.0.127
+R18(config)#access-list 1 permit 90.90.90.128 0.0.0.127
+R18(config)#ip nat pool NAT_POOL 90.90.92.0 90.90.92.5 netmask 255.255.255.240
+R18(config)#ip nat inside source list 1 pool NAT_POOL overload
+R18(config)#int e0/2
+R18(config-if)#ip nat outside
+R18(config-if)#ex
+R18(config)#int e0/3
+R18(config-if)#ip nat outside
+R18(config-if)#ex
+R18(config)#int e0/1
+R18(config-if)#ip nat inside
+R18(config-if)#ex
+R18(config)#int e0/0
+R18(config-if)#ip nat inside
+R18(config-if)#ex
+```
+Начнем анонсировать внешние адреса, с которых пользователи локальной сети будут выходить во внешний мир:
+```
+R18(config)#router bgp 2042
+R18(config-router)#network 90.90.92.0 mask 255.255.255.240
+R18(config-router)#ex
+```
+Добавим PAT адреса в список разрешенных, которые будут анонсироваться в AS 520:
+```
+R18(config)#ip prefix-list DENY_UPDATE_to_AS520 seq 20 permit 90.90.92.0/28
+R18(config)#end
+R18#clear ip bgp * soft
+```
