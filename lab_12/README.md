@@ -88,7 +88,7 @@ R14(config)#ip nat inside source static 150.150.150.138 150.150.152.2
 R15(config)#ip nat inside source static tcp 150.150.150.129 23 150.150.151.3 23
 ```
 ```
-R15(config)#ip nat inside source static tcp 150.150.150.129 23 150.150.152.3 23
+R14(config)#ip nat inside source static tcp 150.150.150.129 23 150.150.152.3 23
 R14(config)#int e0/3
 R14(config-if)#ip nat inside
 ```
