@@ -74,3 +74,12 @@ R18(config)#ip prefix-list DENY_UPDATE_to_AS520 seq 20 permit 90.90.92.0/28
 R18(config)#end
 R18#clear ip bgp * soft
 ```
+### 3. Настроить статический NAT для R20.
+```
+R15(config)#ip nat inside source static 150.150.150.138 150.150.151.2
+R15(config)#int e0/3
+R15(config-if)#ip nat inside
+```
+```
+R14(config)#ip nat inside source static 150.150.150.138 150.150.152.2
+```
