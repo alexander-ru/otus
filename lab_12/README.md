@@ -144,3 +144,24 @@ R13(config)#ip dhcp excluded-address 150.150.150.1 150.150.150.31
 R13(config)#ip dhcp excluded-address 150.150.150.65 150.150.150.95
 ```
 ![](1.png)
+### 7. Настроить NTP сервер на R12 и R13. Все устройства в офисе Москва должны синхронизировать время с R12 и R13.
+```
+R12#clock set 21:30:00 2 Mar 2025
+R12#conf t
+R12(config)#ntp master 5
+R12(config)#clock timezone MSK 3
+```
+```
+R13#clock set 21:31:00 2 Mar 2025
+R13#conf t
+R13(config)#clock timezone MSK 3
+R13(config)#ntp master 5
+```
+```
+R20#conf t
+R20(config)#ntp server 12.12.12.12
+R20(config)#ntp server 13.13.13.13
+```
+![](3.png)  
+
+Остальные устройства настраиваются аналогично.
