@@ -92,3 +92,22 @@ R14(config)#ip nat inside source static tcp 150.150.150.129 23 150.150.152.3 23
 R14(config)#int e0/3
 R14(config-if)#ip nat inside
 ```
+### 5*. Настроить статический NAT(PAT) для офиса Чокурдах.
+```
+R28#conf t
+R28(config)#access-list 1 permit 179.140.30.0 0.0.0.255
+R28(config)#access-list 1 permit 179.140.31.0 0.0.0.255
+R28(config)#ip nat inside source list 1 interface e0/1 overload
+R28(config)#ip nat inside source list 1 interface e0/0 overload
+R28(config)#int e0/2.30
+R28(config-subif)#ip nat inside
+R28(config-subif)#ex
+R28(config)#int e0/2.31
+R28(config-subif)#ip nat inside
+R28(config-subif)#ex
+R28(config)#int e0/1
+R28(config-if)#ip nat outside
+R28(config-if)#ex
+R28(config)#int e0/0
+R28(config-if)#ip nat outside
+```
