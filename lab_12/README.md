@@ -142,3 +142,4 @@ R13(dhcp-config)#ex
 R13(config)#ip dhcp excluded-address 150.150.150.1 150.150.150.31
 R13(config)#ip dhcp excluded-address 150.150.150.65 150.150.150.95
 ```
+![](1.png)
