@@ -111,3 +111,34 @@ R28(config-if)#ex
 R28(config)#int e0/0
 R28(config-if)#ip nat outside
 ```
+### 6. Настроить для IPv4 DHCP сервер в офисе Москва на маршрутизаторах R12 и R13. VPC1 и VPC7 должны получать сетевые настройки по DHCP.
+```
+R12#conf t
+R12(config)#ip dhcp pool VLAN_10
+R12(dhcp-config)#network 150.150.150.0 /26
+R12(dhcp-config)#default-router 150.150.150.62
+R12(dhcp-config)#dns-server 77.88.8.8
+R12(dhcp-config)#ex
+R12(config)#ip dhcp pool VLAN_20
+R12(dhcp-config)#network 150.150.150.64 /26
+R12(dhcp-config)#default-router 150.150.150.126
+R12(dhcp-config)#dns-server 77.88.8.8
+R12(dhcp-config)#ex
+R12(config)#ip dhcp excluded-address 150.150.150.32 150.150.150.62
+R12(config)#ip dhcp excluded-address 150.150.150.96 150.150.150.126
+```
+```
+R13#conf t
+R13(config)#ip dhcp pool VLAN_10
+R13(dhcp-config)#network 150.150.150.0 /26
+R13(dhcp-config)#default-router 150.150.150.62
+R13(dhcp-config)#dns-server 77.88.8.8
+R13(dhcp-config)#ex
+R13(config)#ip dhcp pool VLAN_20
+R13(dhcp-config)#network 150.150.150.64 /26
+R13(dhcp-config)#default-router 150.150.150.126
+R13(dhcp-config)#dns-server 77.88.8.8
+R13(dhcp-config)#ex
+R13(config)#ip dhcp excluded-address 150.150.150.1 150.150.150.31
+R13(config)#ip dhcp excluded-address 150.150.150.65 150.150.150.95
+```
