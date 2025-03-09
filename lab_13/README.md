@@ -38,7 +38,7 @@ R18(config-router)#network 172.26.1.4 0.0.0.3 area 50
 R18(config-router)#redistribute eigrp 1 subnets
 R18(config-router)#end
 ```
-### 2. Настроить DMVMN между Москва и Чокурдах, Лабытнанги.
+### 2. Настроить DMVMN между Москва, Чокурдах и Лабытнанги.
 Настройка Hub роутера R15:
 ```
 R15#conf t
@@ -96,3 +96,6 @@ R28(config-router)#network 179.140.30.0 0.0.0.255
 R28(config-router)#network 179.140.31.0 0.0.0.255
 ```
 ### Проверка
+![](1.png)
+![](2.png)
+![](3.png)
