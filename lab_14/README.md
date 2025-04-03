@@ -3,7 +3,7 @@
 1. Настроить GRE поверх IPSec между офисами Москва и С.-Петербург.
 2. Настроить DMVPN поверх IPSec между Москва и Чокурдах, Лабытнанги.
 ### 1. Настроить GRE поверх IPSec между офисами Москва и С.-Петербург.
-Сперва настроим R15:
+Сперва настроим IPsec на R15:
 ```
 R15#conf t
 R15(config)#crypto isakmp policy 10
@@ -20,7 +20,7 @@ R15(ipsec-profile)#ex
 R15(config)#interface tunnel 2
 R15(config-if)#tunnel protection ipsec profile SITE-TO-SITE-PROFILE
 ```
-Теперь настроим R18:
+Теперь настроим IPsec на R18:
 ```
 R18#conf t
 R18(config)#crypto isakmp policy 10
@@ -37,3 +37,9 @@ R18(ipsec-profile)#ex
 R18(config)#int tunnel 2
 R18(config-if)#tunnel protection ipsec profile SITE-TO-SITE-PROFILE
 ```
+Проверим IPsec туннель:  
+
+![](1.png)
+![](2.png)
+![](3.png)
+![](4.png)
