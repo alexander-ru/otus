@@ -98,3 +98,9 @@ R28(ipsec-profile)#ex
 R28(config)#int tunnel 100
 R28(config-if)#tunnel protection ipsec profile DMVPN_PROFILE
 ```
+Проверка:  
+
+![](5.png)
+![](6.png)
+![](7.png)
+![](8.png)
